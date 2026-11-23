@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Booking Confirmed | TravelGo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            padding: 25px;
+        }
+        .receipt {
+            max-width: 550px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+        }
+        .success {
+            color: #16834a;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .detail {
+            padding: 12px 0;
+            border-bottom: 1px solid #edf0f5;
+        }
+        .amount {
+            font-size: 25px;
+            color: #1769e0;
+            font-weight: bold;
+        }
+        a {
+            display: inline-block;
+            background: #1769e0;
+            color: white;
+            padding: 13px 20px;
+            text-decoration: none;
+            border-radius: 7px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="receipt">
+    <p class="success">✓ Booking Confirmed!</p>
+    <h1>TravelGo Ticket Receipt</h1>
+
+    <div class="detail">
+        <strong>Booking ID:</strong> TG-{{ booking.id }}
+    </div>
+
+    <div class="detail">
+        <strong>Passenger:</strong> {{ booking.passenger_name }}
+    </div>
+
+    <div class="detail">
+        <strong>Email:</strong> {{ booking.passenger_email }}
+    </div>
+
+    <div class="detail">
+        <strong>Bus:</strong> {{ booking.bus_name }}
+    </div>
+
+    <div class="detail">
+        <strong>Route:</strong>
+        {{ booking.source }} → {{ booking.destination }}
+    </div>
+
+    <div class="detail">
+        <strong>Departure:</strong> {{ booking.departure_time }}
+    </div>
+
+    <div class="detail">
+        <strong>Travel Date:</strong> {{ booking.travel_date }}
+    </div>
+
+    <div class="detail">
+        <strong>Seats:</strong> {{ booking.seats }}
+    </div>
+
+    <p>Total Fare</p>
+    <div class="amount">
+        PKR {{ "%.0f"|format(booking.total_fare) }}
+    </div>
+
+    <p>Thank you for choosing TravelGo!</p>
+
+    <a href="/">Back to Home</a>
+
+    <button onclick="window.print()"
+        style="padding:13px 20px;margin-top:20px;cursor:pointer;">
+        Print Ticket
+    </button>
+</div>
+</body>
+</html>

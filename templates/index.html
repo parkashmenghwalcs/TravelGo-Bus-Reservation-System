@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelGo | Bus Reservation</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f7f9fc;
+            color: #172033;
+        }
+
+        nav {
+            height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            background: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: #1769e0;
+        }
+
+        .logo span {
+            color: #172033;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #526078;
+            margin-left: 30px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: #1769e0;
+        }
+
+        .nav-btn {
+            background: #1769e0;
+            color: white !important;
+            padding: 12px 22px;
+            border-radius: 9px;
+        }
+
+        .hero {
+            background: linear-gradient(120deg, #102b57, #1769e0);
+            padding: 85px 8% 120px;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.14);
+            padding: 9px 17px;
+            border-radius: 30px;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-size: clamp(34px, 5vw, 54px);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 span {
+            color: #8fc2ff;
+        }
+
+        .hero p {
+            color: #dce9ff;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .search-box {
+            max-width: 1050px;
+            margin: -55px auto 0;
+            position: relative;
+            background: white;
+            padding: 30px;
+            border-radius: 17px;
+            box-shadow: 0 15px 45px rgba(20, 40, 80, 0.12);
+        }
+
+        .search-box h2 {
+            font-size: 20px;
+            margin-bottom: 22px;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr) auto;
+            gap: 14px;
+            align-items: end;
+        }
+
+        .field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748b;
+            margin-bottom: 9px;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            padding: 14px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 9px;
+            font-size: 14px;
+            color: #172033;
+            background: white;
+            outline: none;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: #1769e0;
+        }
+
+        .search-btn {
+            padding: 15px 22px;
+            border: none;
+            border-radius: 9px;
+            background: #1769e0;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .search-btn:hover {
+            background: #1053b8;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            padding: 85px 8%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-heading h2 {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .section-heading p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            border: 1px solid #edf0f5;
+            transition: 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .feature-icon {
+            font-size: 30px;
+            margin-bottom: 18px;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #718096;
+        }
+
+        .popular {
+            background: #eef4fc;
+        }
+
+        .routes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .route-card {
+            background: white;
+            padding: 25px;
+            border-radius: 13px;
+            border: 1px solid #e8edf5;
+        }
+
+        .route-card h3 {
+            font-size: 17px;
+            margin-bottom: 12px;
+        }
+
+        .route-card p {
+            color: #718096;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        footer {
+            background: #102b57;
+            color: white;
+            padding: 30px 8%;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        @media(max-width: 850px) {
+            .search-form {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features,
+            .routes {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                padding: 0 5%;
+            }
+        }
+
+        @media(max-width: 550px) {
+            .nav-links a:not(.nav-btn) {
+                display: none;
+            }
+
+            .hero {
+                padding: 65px 5% 100px;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                margin: -45px 15px 0;
+                padding: 22px;
+            }
+
+            .section {
+                padding: 60px 6%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">Travel<span>Go.</span></div>
+
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#routes">Routes</a>
+            <a href="#features">About</a>
+            <a href="#search" class="nav-btn">Book Ticket</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-tag">✦ Your journey starts here</div>
+
+        <h1>
+            Travel Smarter.<br>
+            Travel <span>Comfortably.</span>
+        </h1>
+
+        <p>
+            Discover your next destination and book your bus tickets
+            with a simple, secure and convenient experience.
+        </p>
+    </section>
+
+    <section class="search-box" id="search">
+        <h2>Find Your Bus</h2>
+
+        <!-- FIXED SEARCH FORM -->
+        <form class="search-form" action="/search" method="GET">
+
+            <div class="field">
+                <label>FROM</label>
+                <select name="source" required>
+                    <option value="">Select departure</option>
+                    <option value="Karachi">Karachi</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Lahore">Lahore</option>
+                    <option value="Islamabad">Islamabad</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>TO</label>
+                <select name="destination" required>
+                    <option value="">Select destination</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Karachi">Karachi</option>
+                    <option value="Lahore">Lahore</option>
+                    <option value="Islamabad">Islamabad</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>TRAVEL DATE</label>
+                <input type="date" name="date" required>
+            </div>
+
+            <div class="field">
+                <label>PASSENGERS</label>
+                <select name="passengers">
+                    <option value="1">1 Passenger</option>
+                    <option value="2">2 Passengers</option>
+                    <option value="3">3 Passengers</option>
+                    <option value="4">4 Passengers</option>
+                </select>
+            </div>
+
+            <button class="search-btn" type="submit">
+                Search Buses →
+            </button>
+
+        </form>
+    </section>
+
+    <section class="section" id="features">
+
+        <div class="section-heading">
+            <h2>Why Choose TravelGo?</h2>
+            <p>Everything you need for a comfortable journey.</p>
+        </div>
+
+        <div class="features">
+
+            <div class="feature-card">
+                <div class="feature-icon">🚌</div>
+                <h3>Easy Bus Booking</h3>
+                <p>Find available buses and plan your journey easily
+                    from one convenient platform.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💺</div>
+                <h3>Choose Your Seat</h3>
+                <p>Select your preferred seat and enjoy a comfortable
+                    travel experience.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎫</div>
+                <h3>Instant Reservations</h3>
+                <p>Manage your reservations and access your booking
+                    details conveniently.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section popular" id="routes">
+
+        <div class="section-heading">
+            <h2>Popular Routes</h2>
+            <p>Explore popular travel destinations in Pakistan.</p>
+        </div>
+
+        <div class="routes">
+
+            <div class="route-card">
+                <h3>🚌 Karachi → Hyderabad</h3>
+                <p>Explore convenient travel between Karachi
+                    and Hyderabad.</p>
+            </div>
+
+            <div class="route-card">
+                <h3>🚌 Karachi → Lahore</h3>
+                <p>Plan your long-distance journey with ease.</p>
+            </div>
+
+            <div class="route-card">
+                <h3>🚌 Karachi → Islamabad</h3>
+                <p>Discover comfortable intercity travel options.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 TravelGo Bus Reservation System.</p>
+        <p>Developed as a Software Quality Assurance University Project.</p>
+    </footer>
+
+</body>
+
+</html>

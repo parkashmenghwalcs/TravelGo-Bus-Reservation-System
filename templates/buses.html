@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Available Buses | TravelGo</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+            margin: 0;
+        }
+        header {
+            background: white;
+            padding: 22px 8%;
+            color: #1769e0;
+            font-size: 25px;
+            font-weight: bold;
+        }
+        main {
+            max-width: 950px;
+            margin: 40px auto;
+            padding: 0 18px;
+        }
+        .bus-card, .empty {
+            background: white;
+            padding: 24px;
+            margin: 18px 0;
+            border-radius: 12px;
+            box-shadow: 0 3px 14px #0000000c;
+        }
+        .bus-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        .bus-card h2 { margin-top: 0; }
+        .muted { color: #64748b; line-height: 1.7; }
+        .fare {
+            color: #1769e0;
+            font-size: 23px;
+            font-weight: bold;
+        }
+        .button {
+            display: inline-block;
+            background: #1769e0;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 7px;
+            margin-top: 10px;
+        }
+        .button:hover { background: #1053b8; }
+        .back { color: #1769e0; }
+        @media(max-width: 600px) {
+            .bus-card { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<header>TravelGo.</header>
+
+<main>
+    <h1>Available Buses</h1>
+    <p class="muted">
+        {{ source }} → {{ destination }}<br>
+        Travel date: {{ travel_date }}
+    </p>
+
+    {% if buses %}
+        {% for bus in buses %}
+        <div class="bus-card">
+            <div>
+                <h2>{{ bus.bus_name }}</h2>
+                <p class="muted">
+                    {{ bus.source }} → {{ bus.destination }}<br>
+                    Departure: {{ bus.departure_time }}<br>
+                    Available seats: {{ bus.available_seats }}
+                </p>
+            </div>
+
+            <div>
+                <div class="fare">PKR {{ "%.0f"|format(bus.fare) }}</div>
+                <p class="muted">Per passenger</p>
+
+                {% if bus.available_seats > 0 %}
+                    <a class="button"
+                       href="{{ url_for('book_ticket', bus_id=bus.id, travel_date=travel_date) }}">
+                        Book Ticket
+                    </a>
+                {% else %}
+                    <strong>Fully booked</strong>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty">
+            <h2>No buses found!</h2>
+            <p>Try another route or travel date.</p>
+        </div>
+    {% endif %}
+
+    <p><a class="back" href="/">← Back to Home</a></p>
+</main>
+</body>
+</html>
